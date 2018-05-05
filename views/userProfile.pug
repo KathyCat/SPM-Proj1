@@ -1,0 +1,25 @@
+extends appoint
+
+
+block tabContent
+    .py-5.bg-light
+        .container
+            form(action='/users/updateProfile', method='post')
+                .row
+                    .mb-3
+                        label(for = 'email') Email
+                        input.form-control(id='email', type = 'text', value = email, readonly)
+                .row
+                    .mb-3
+                        label(for = 'address') Address
+                        input.form-control(id='address', type = 'text')
+                .row
+                    .mb-3(id = 'contactList')
+                        label(for = 'contact1') Contact 1
+                        input.form-control(id='contact1', type = 'text')
+                        label(for = 'contact2') Contact 2
+                        input.form-control(id='contact2', type = 'text')
+                        label(for = 'contact3') Contact 3
+                        input.form-control(id='contact3', type = 'text')
+                hr.mb-4
+                button.btn.btn-primary.btn-block(type='submit') Confirm

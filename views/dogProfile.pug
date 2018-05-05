@@ -1,0 +1,23 @@
+extends appoint
+
+
+block tabContent
+    .py-5.bg-light
+        .container
+            form(action='/users/updateDogs', method='post')
+                .row
+                    .mb-3
+                        label(for = 'name') Name
+                        input.form-control(id='name', type = 'text')
+                .row
+                    .mb-3
+                        label(for = 'breed') Breed
+                        input.form-control(id='breed', type = 'text')
+                .row
+                    .mb-3
+                        label(for = 'birthday') Birthday
+                        input.form-control(id='birthday', type = 'text')
+                .row
+                    button.btn.btn-primary(type='button') Add
+                hr.mb-4
+                button.btn.btn-primary.btn-block(type='submit') Confirm

@@ -1,0 +1,20 @@
+doctype html
+html
+  include includes/head.pug
+    link(rel='stylesheet', href='https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css')
+
+  body.text-center
+    .container
+      h1.h3.font-weight-normal Please Sign in
+        form.form-signin(action='/users/login', method='post')
+          input.form-control(type='text', placeholder='Email', name='email')/
+          input.form-control(type='password', placeholder='Password', name='psw')/
+          button.btn.btn-block.btn-primary.btn-lg(type="submit") Sign in
+          hr
+          h6.text-muted.font-weight-light No account?
+        button.btn.btn-primary(id='register') Sign up
+
+
+
+
+  include includes/foot.pug

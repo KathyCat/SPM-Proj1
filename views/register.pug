@@ -1,0 +1,18 @@
+doctype html
+html
+  include includes/head.pug
+    link(rel='stylesheet', href='https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css')
+
+
+  body.text-center
+    .container
+      h1.h3.font-weight-normal Welcome to Grooming
+        form.form-signin(action='/users/register', method='post')
+          input.form-control(type='text', placeholder='Email', name='email', required)/
+          input.form-control(type='password', placeholder='Password', name='psw', required)/
+          button.btn.btn-block.btn-primary.btn-lg(type="submit") Sign up
+
+
+
+
+  include includes/foot.pug
