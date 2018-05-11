@@ -1,25 +1,32 @@
-extends appoint
+extends skeleton
 
 
 block tabContent
     .py-5.bg-light
         .container
-            form(action='/users/updateProfile', method='post')
+            form(id="accountForm")
+                // action='/users/updateProfile', method='post'
                 .row
                     .mb-3
                         label(for = 'email') Email
-                        input.form-control(id='email', type = 'text', value = email, readonly)
+                        input.form-control(id='email', type = 'text', name = 'email', value = info.email, readonly)
                 .row
                     .mb-3
                         label(for = 'address') Address
-                        input.form-control(id='address', type = 'text')
+                        input.form-control(id='address', type = 'text', name = 'address', value = info.address)
                 .row
                     .mb-3(id = 'contactList')
-                        label(for = 'contact1') Contact 1
-                        input.form-control(id='contact1', type = 'text')
-                        label(for = 'contact2') Contact 2
-                        input.form-control(id='contact2', type = 'text')
-                        label(for = 'contact3') Contact 3
-                        input.form-control(id='contact3', type = 'text')
+                        mixin contact(title, val)
+                            label= title
+                            input.form-control.contact(type = 'text', name = 'contact', value = val)
+                        if info.contacts == null
+                            +contact("Contact 1", "")
+                        else
+                            each val, index in info.contacts
+                                +contact("Contact " + (index + 1), val)
+
+                .row
+                    .mb-3
+                        button.btn.btn-primary(type = 'button', id='addContact') Add
                 hr.mb-4
-                button.btn.btn-primary.btn-block(type='submit') Confirm
+                button.btn.btn-primary.btn-block(type='button', id='submitAccount') Confirm

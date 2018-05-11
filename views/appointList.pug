@@ -1,0 +1,33 @@
+extends skeleton
+
+
+block tabContent
+
+    .py-5.bg-light(id = '')
+        .container
+            .row
+                button.btn.btn-primary(type='button', id="goToAppointOptions") Make appointment
+
+    .table-responsive
+        table.table.table-striped
+            thead
+                tr
+                    th Dog
+                    th Date
+                    th Time Slot
+                    th Option
+                    th Comment
+            tbody
+                -var ts = ['9:00 - 10:30', '10:30 - 12:00', '12:00 - 13:30', '13:30 - 15:00','15:00 - 16:30', '16:30 - 18:00']
+
+                mixin appoint(val)
+                    tr
+                        td= val.dog
+                        td= val.adate
+                        td= ts[val.timeslot]
+                        td= val.aoption
+                        td= val.acomment
+
+                if info != null
+                    each val in info
+                        +appoint(val)
