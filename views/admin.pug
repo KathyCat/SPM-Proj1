@@ -1,0 +1,63 @@
+doctype html
+html
+    include includes/head.pug
+        link(rel='stylesheet', href='https://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css')
+
+
+    body
+        nav.navbar.navbar-dark.fixed-top.bg-dark.flex-md-nowrap.p-0.shadow
+            a.navbar-brand.col-sm-3.col-md-2.mr-0(href='#') Grooming Admin
+            span.w-100
+            ul.navbar-nav.px-3
+                li.nav-item.text-nowrap
+                    a.nav-link(href='#') Sign out
+
+        .container-fluid
+            .row
+                nav.col-md-2.d-none.d-md-block.bg-light.sidebar
+                    .sidebar-sticky
+                        ul.nav.flex-column
+                            li.nav-item
+                                a.nav-link(href="/appointList")
+                                    span(data-feather="file")
+                                    | Bookings
+
+
+                main.col-md-9.ml-sm-auto.col-lg-10.px-4(role='main')
+                    .d-flex.flex-row.align-items-center.border-bottom
+                        br
+                        h1.jumbotron-heading Bookings
+
+                    block tabContent
+                        .table-responsive
+                            table.table.table-striped
+                                thead
+                                    tr
+                                        th Email
+                                        th Dog
+                                        th Date
+                                        th Time Slot
+                                        th Option
+                                        th Comment
+                                tbody
+                                    -var ts = ['9:00 - 10:30', '10:30 - 12:00', '12:00 - 13:30', '13:30 - 15:00','15:00 - 16:30', '16:30 - 18:00']
+
+                                    mixin appoint(val)
+                                        tr
+                                            td= val.email
+                                            td= val.dog
+                                            td= val.adate
+                                            td= ts[val.timeslot]
+                                            td= val.aoption
+                                            td= val.acomment
+
+                                    if info != null
+                                        each val in info
+                                            +appoint(val)
+
+
+
+    script(src="https://unpkg.com/feather-icons/dist/feather.min.js")
+    script.
+        feather.replace()
+    include includes/foot.pug

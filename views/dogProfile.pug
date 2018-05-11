@@ -1,23 +1,46 @@
-extends appoint
+extends skeleton
 
 
 block tabContent
-    .py-5.bg-light
+    .py-5.bg-light(id = 'addDogForm', style="display:none")
         .container
-            form(action='/users/updateDogs', method='post')
-                .row
-                    .mb-3
-                        label(for = 'name') Name
-                        input.form-control(id='name', type = 'text')
-                .row
-                    .mb-3
-                        label(for = 'breed') Breed
-                        input.form-control(id='breed', type = 'text')
-                .row
-                    .mb-3
-                        label(for = 'birthday') Birthday
-                        input.form-control(id='birthday', type = 'text')
-                .row
-                    button.btn.btn-primary(type='button') Add
-                hr.mb-4
-                button.btn.btn-primary.btn-block(type='submit') Confirm
+            .row
+                form(id = "dogForm", action='/dogs/add', method='post')
+                    .row
+                        .mb-3
+                            label Name
+                            input.form-control(type = 'text', name='name')
+                    .row
+                        .mb-3
+                            label Breed
+                            input.form-control(type = 'text', name='breed')
+                    .row
+                        .mb-3
+                            label Birthday
+                            input.form-control(type = 'date', name='birthday')
+                    .row
+                    button.btn.btn-primary(type='submit') Confirm
+
+    .py-5.bg-light(id = 'addDogButton')
+        .container
+            .row
+                button.btn.btn-primary(type='button', id="addDog") Add dog
+
+    .table-responsive
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th Breed
+                    th Birthday
+
+            tbody
+                mixin dog(val)
+                    tr
+                        td= val.name
+                        td= val.breed
+                        td= val.birthday
+
+                if info != null
+                    each val in info
+                        +dog(val)

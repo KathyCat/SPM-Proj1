@@ -1,60 +1,54 @@
-doctype html
-html
-  include includes/head.pug
-    link(rel='stylesheet', href='https://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css')
+extends skeleton
 
 
+block tabContent
+    .py-5.bg-light
+        .container
+            .row
+                form(action='/appoints/add', method='post')
+                    .row
+                        .mb-3
+                            label Choose a dog
+                            .table-responsive
+                                table.table.table-striped
+                                    thead
+                                        tr
+                                            th
+                                            th Name
+                                            th Breed
+                                            th Birthday
+                                    tbody
+                                        mixin dog(val)
+                                            tr
+                                                td
+                                                    input(type="radio", name="dog", value=val.id)
+                                                td= val.name
+                                                td= val.breed
+                                                td= val.birthday
 
-  body
-    nav.navbar.navbar-dark.fixed-top.bg-dark.flex-md-nowrap.p-0.shadow
-      a.navbar-brand.col-sm-3.col-md-2.mr-0(href='#') Grooming
-      span.w-100
-      ul.navbar-nav.px-3
-        li.nav-item.text-nowrap
-          a.nav-link(href='#') Sign out
+                                        if dogs != null
+                                            each val in dogs
+                                                +dog(val)
+                    .row
+                        .mb-3
+                            label Choose a date
+                            input.form-control(id='date', type = 'date', name='date', required)
+                    .row
+                        .mb-3(id = 'timeSlot')
+                            button.btn.btn-primary(type='button', id='chooseTS') Choose time slot
 
-    .container-fluid
-      .row
-        nav.col-md-2.d-none.d-md-block.bg-light.sidebar
-          .sidebar-sticky
-            ul.nav.flex-column
-              li.nav-item
-                a.nav-link(href="/appoints")
-                  span(data-feather="file")
-                  | Appointments
-              li.nav-item
-                a.nav-link(href="/users")
-                  span(data-feather="users")
-                  | Account
-              li.nav-item
-                a.nav-link.active(href="/dogs")
-                  span(data-feather="folder-plus")
-                  | Dogs' profile
+                    .row
+                        .mb-3
+                            label Choose a grooming option
+                            select.custom-select.d-block.w-100(name="option" required)
+                                option(value="") Choose...
+                                option wash only
+                                option wash and nail clipping
+                                option deluxe grooming
+                    .row
+                        .mb-3
+                            label Additional comment
+                            input.form-control(type = 'text', name='comment')
+                    .row
+                    button.btn.btn-primary(type='submit') Confirm
 
-        main.col-md-9.ml-sm-auto.col-lg-10.px-4(role='main')
-          .d-flex.flex-row.align-items-center.border-bottom
-            br
-            if type == 'appoints'
-               h1.jumbotron-heading Apointments
-            else if type == 'dogs'
-               h1.jumbotron-heading Dogs
-            else if type == 'userProfile'
-                h1.jumbotron-heading Account
-          block tabContent
-              .py-5.bg-light
-                .container
-                   .row
-                      .col-md-4
-                         .mb-4.box-shadow.bg-white
-                             .appoints
-                               p appoint1
-                               .d-flex.justify-content-between.align-items-center
-                                  .btn-group
-                                     button.btn.btn-sm.btn-outline-secondary Edit
-                                     button.btn.btn-sm.btn-outline-secondary Cancel
-
-
-  script(src="https://unpkg.com/feather-icons/dist/feather.min.js")
-  script.
-    feather.replace()
-  include includes/foot.pug
