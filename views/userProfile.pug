@@ -19,7 +19,7 @@ block tabContent
                         mixin contact(title, val)
                             label= title
                             input.form-control.contact(type = 'text', name = 'contact', value = val)
-                        if info.contacts == null
+                        if info.contacts == null || info.contacts.length == 0
                             +contact("Contact 1", "")
                         else
                             each val, index in info.contacts
