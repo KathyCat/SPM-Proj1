@@ -45,4 +45,57 @@ router.get('/', function (req, res) {
 
 });
 
+/* GET bookings */
+router.get('/getUser', function (req, res) {
+    var connection = users.startMysql();
+    var email = req.query.email;
+    var sql = "SELECT * FROM user WHERE email = " + email;
+    var address = null;
+    var info;
+    var contacts = [];
+
+    console.log(sql);
+    connection.query(sql, function (err, result) {
+        if (err) {
+            console.log("Select user error: " + err.toString());
+
+        } else {
+            console.log('Fetch user success');
+
+            var jsonresult = JSON.parse(JSON.stringify(result));
+            address = jsonresult[0].address;
+
+            // select contacts
+            sql = "SELECT * FROM usercontact WHERE email = " + email;
+            console.log(sql);
+            connection.query(sql, function (err, result) {
+                if (err) {
+                    console.log("Select contact error: " + err.toString());
+
+                } else {
+
+                    var jsonresult = JSON.parse(JSON.stringify(result));
+                    console.log(jsonresult);
+                    for (i = 0; i < jsonresult.length; i++) {
+                        contacts.push(jsonresult[i].contact);
+                    }
+                }
+                info = {
+                    "email": email,
+                    "address": address,
+                    "contacts": contacts
+                }
+
+
+                res.render('userAdmin', {
+                    info: info,
+                    type: 'userProfile',
+                });
+                connection.end();
+            })
+        }
+    })
+
+});
+
 module.exports = router;

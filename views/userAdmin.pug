@@ -1,0 +1,27 @@
+extends admin
+
+block tabContent
+    .py-5.bg-light
+        .container
+            .row
+                .mb-3
+                    h4 Email
+                    p.text-primary.lead= info.email
+            .row
+                .mb-3
+                    h4 Address
+                    p.text-primary.lead= info.address
+            .row
+                .mb-3
+                    mixin contact(title, val)
+                        h4= title
+                        p.text-primary.lead= val
+                    if info.contacts == null || info.contacts.length == 0
+
+                    else
+                        each val, index in info.contacts
+                            +contact("Contact " + (index + 1), val)
+
+
+
+

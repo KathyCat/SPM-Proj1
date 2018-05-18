@@ -18,7 +18,7 @@ html
                     .sidebar-sticky
                         ul.nav.flex-column
                             li.nav-item
-                                a.nav-link(href="/appointList")
+                                a.nav-link(href="/admin")
                                     span(data-feather="file")
                                     | Bookings
 
@@ -44,7 +44,8 @@ html
 
                                     mixin appoint(val)
                                         tr
-                                            td= val.email
+                                            td
+                                                a.nav-link(href="/admin/getUser?email='" + val.email + "'")= val.email
                                             td= val.dog
                                             td= val.adate
                                             td= ts[val.timeslot]
